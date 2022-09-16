@@ -9,7 +9,7 @@ public class Palindromo5 {
 	private static final List<Integer> palindromosprimos = new ArrayList<Integer>();
 	public static void main(String[] args) {
 		Pi pi = new Pi();
-		int n=1000;
+		int n=300000;
 		pi.pi(n);
 		BigDecimal bigDecimal = pi.getValor();
 		System.out.println(bigDecimal);
@@ -58,33 +58,64 @@ public class Palindromo5 {
 	    }
 	    //agora vamos encontrar numeros primos em grupos de 9 em 9 e adicionar em uma lista
 	    System.out.println(dPi.length);
+	    System.out.println("Ultimo numero: "+dPi[300001]);
 	    //criar um vetor de posiçao para auxiliar
-	    int p=0;
+	    int pp=0;
 	    int[] posicao = new int[dPi.length];
 	    for(int i=0;i<(dPi.length-8);i++) { //pode ser que o primeiro numero seja 0, 
+	    	System.out.println(i);
 	    	//mas todo numero terminado em zero é par, entao nao impora
 	    	//todo numero terminado em par é divisivel por 2
 	    	//se começa ou termina em par, nao pode ser palindromo primo
 	    	if(dPi[i]%2==0||dPi[i+8]%2==0) {
 	    		continue;
 	    	}else {
-		    	int numeroTeste = (100000000*dPi[i])+(10000000*dPi[i+1])+(1000000*dPi[i+2])+
-		    			(100000*dPi[i+3])+(10000*dPi[i+4])+(1000*dPi[i+5])+
-		    			(100*dPi[i+6])+(10*dPi[i+7])+(1*dPi[i+8]);
+		    	//para agilizar o processo: conferimos se é palindromo antes
+		    	if(dPi[i]==dPi[i+8]) {
+		    		if(dPi[i+1]==dPi[i+7]) {
+		    			if(dPi[i+2]==dPi[i+6]) {
+		    				if(dPi[i+3]==dPi[i+5]) {
+		    			    	int numeroTeste = (100000000*dPi[i])+(10000000*dPi[i+1])+(1000000*dPi[i+2])+
+		    			    			(100000*dPi[i+3])+(10000*dPi[i+4])+(1000*dPi[i+5])+
+		    			    			(100*dPi[i+6])+(10*dPi[i+7])+(1*dPi[i+8]);
+		    		    		palindromosprimos.add(numeroTeste);
+		    		    		posicao[pp]=i;
+		    		    		pp++;
+		    				}else {
+		    					continue;
+		    				}
+		    			}else {
+		    				continue;
+		    			}
+		    		}else {
+		    			continue;
+		    		}
+		    	}else {
+		    		System.out.println(i);
+		    		continue;
+		    	}
+		    	
+		    	
 		    	//System.out.println(numeroTeste);
+		    	/*
 		    	if(ehPrimo(numeroTeste)) {
 		    		primos.add(numeroTeste);
+		    		System.out.println("PRIMO");
 		    		posicao[p]=i;
 		    		p++;
 		    	}
+		    	*/
 	    	}
 	    }
+	    /*
 	    //imprimindo numeros primos e suas posiçoes:
 	    for (int i=0;i<primos.size();i++) {
 	    	int primo = primos.get(i);
-			System.out.println("Numero: "+primo+"de posicao: "+posicao[i]);
+			System.out.println("Numero: "+primo+" de posicao: "+posicao[i]);
 		}
+		*/
 	    //agora vamos encontrar numeros palindromos dentro do conjunto de primos
+	    /*
 	    int ppp=0;
 	    int[] posicaopalindromoprimo = new int[primos.size()];
 	    for (int i=0;i<primos.size();i++) {
@@ -108,6 +139,7 @@ public class Palindromo5 {
 	    						palindromosprimos.add(primo);
 	    						posicaopalindromoprimo[ppp]=i;
 	    						ppp++;
+	    						break;
 	    					}
 	    				}else {
 	    					continue;
@@ -118,15 +150,18 @@ public class Palindromo5 {
 	    		}else {
 	    			continue;
 	    		}
-		}
+		}*/
 	    //imprimindo lista do palindromo5 e sua posicao
 	    if(palindromosprimos.isEmpty()) {
 	    	System.out.println("Palindromo não encontrado");
 	    }else {
 	    	for(int i=0;i<palindromosprimos.size();i++) {
 	    		int palindromo = palindromosprimos.get(i);
-	    		int pos = posicaopalindromoprimo[i];
-	    		System.out.println("Numero: "+palindromo+" de posicao: "+pos);
+	    		int p = posicao[i];
+	    		System.out.println("Numero: "+palindromo+" de posicao: "+p);
+	    		if(ehPrimo(palindromo)) {
+	    			System.out.println("É PRIMO!");
+	    		}
 	    	}
 	    }
 	}
