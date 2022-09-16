@@ -13,7 +13,7 @@ public class Palindromo {
 		for(int i=1;i<10000000;i+=4) {
 			BigDecimal indice = new BigDecimal(i);
 			BigDecimal divB = new BigDecimal(0);
-			divB = div.divide(indice, 1000, RoundingMode.HALF_EVEN);
+			divB = div.divide(indice, 1000, RoundingMode.DOWN);
 			pi=pi.add(divB);
 			//System.out.println(divB);
 			//System.out.println(pi);
@@ -22,7 +22,7 @@ public class Palindromo {
 		for(int i=3;i<1000000002;i+=4) {
 			BigDecimal indice = new BigDecimal(i);
 			BigDecimal divB = new BigDecimal(0);
-			divB = div.divide(indice, 1000, RoundingMode.HALF_EVEN);
+			divB = div.divide(indice, 1000, RoundingMode.DOWN);
 			pi=pi.subtract(divB);
 			//System.out.println(divB);
 			//System.out.println(pi);
